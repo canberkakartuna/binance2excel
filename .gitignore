@@ -1,0 +1,7 @@
+venv/
+__pycache__
+new-files/
+old-files/
+*.csv
+*.xlsx
+.idea/
