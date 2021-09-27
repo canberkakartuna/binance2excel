@@ -2,7 +2,7 @@ import pandas as pd
 from binance2excel import binance2excel
 from utils import *
 
-df = pd.read_csv (r'./canberk_binance.csv')
+df = pd.read_csv (r'./files/canberk_binance.csv')
 
 
 dframe = pd.DataFrame({
@@ -18,7 +18,7 @@ bigdata = bigdata.replace(',','', regex=True)
 bigdata[['Price', 'Amount', 'Executed', 'Fee']] = \
     bigdata[['Price', 'Amount', 'Executed', 'Fee']].astype(float)
 
-# bigdata.to_excel('./canberk_kripto_raw.xlsx', sheet_name='Binance_Data', index=False, engine='xlsxwriter')
+bigdata.to_excel('./canberk_kripto_raw.xlsx', sheet_name='Binance_Data', index=False, engine='xlsxwriter')
 
 
 coin_names = sorted(set(bigdata["Executed_Pair"]))

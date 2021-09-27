@@ -1,51 +1,43 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import TestDataServices from "../../services/test.service";
 
 
 function UploadInput(){
-  const [file, setFile] = useState("123");
+  const fileInput:any = useRef();
+  const [file, setFile] = useState<any>(null);
 
-  const handleFile = () => {
-    const data: any = {
-      file: file
-    } 
+  const handleFileUpload = (event:any) => {    
+    setFile(event.target.files[0])
+  };
+
+  const fileUpload = (event:any) => {   
+    const formData = new FormData();
     
-    TestDataServices.postFile(data).then(res => {
-      console.log(res);
-    }).catch(err => {
-      console.log(err);
-    });
-  }
+    // Update the formData object
+    formData.append("myFile", file);
+    
+    // Request made to the backend api
+    // Send formData object
+    TestDataServices.postFile(formData).then(response => {
+      console.log(response);
+    }).catch(error => {
+      console.log(error);
+      
+    })
+  };
 
   return (
-    <div>
-      <div className="flex justify-center mt-8">
-        <div className="max-w-2xl rounded-lg shadow-xl bg-gray-50">
-          <div className="m-4">
-            <div className="flex items-center justify-center w-full">
-              <label
-                className="flex flex-col w-full h-32 border-4 border-blue-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
-                <div className="flex flex-col items-center justify-center pt-7">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-gray-400 group-hover:text-gray-600"
-                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                  </svg>
-                  <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                    Dosya Yükle
-                  </p>
-                </div>
-                <input type="file" className="opacity-0" />
-              </label>
-            </div>
-          </div>
-          <div className="flex justify-center p-2">
-            <button
-              onClick={handleFile}
-              className="w-full px-4 py-2 text-white bg-blue-500 rounded shadow-xl">Oluştur</button>
-          </div>
-        </div>
-      </div> 
+    <div className="w-1/4 m-auto mt-10">
+      <div>
+        <label
+          className="flex flex-col items-center px-4 py-6 bg-white rounded-md shadow-md uppercase border border-blue cursor-pointer hover:bg-purple-600 hover:text-white text-purple-600 ease-linear transition-all duration-150">
+          <label onClick={() => fileInput.current.click()} htmlFor="upload-btn" className="font-extrabold cursor-pointer">Select a file</label>
+            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M11.492 10.172l-2.5 3.064-.737-.677 3.737-4.559 3.753 4.585-.753.665-2.5-3.076v7.826h-1v-7.828zm7.008 9.828h-13c-2.481 0-4.5-2.018-4.5-4.5 0-2.178 1.555-4.038 3.698-4.424l.779-.14.043-.789c.185-3.448 3.031-6.147 6.48-6.147 3.449 0 6.295 2.699 6.478 6.147l.044.789.78.14c2.142.386 3.698 2.246 3.698 4.424 0 2.482-2.019 4.5-4.5 4.5m.978-9.908c-.212-3.951-3.472-7.092-7.478-7.092s-7.267 3.141-7.479 7.092c-2.57.463-4.521 2.706-4.521 5.408 0 3.037 2.463 5.5 5.5 5.5h13c3.037 0 5.5-2.463 5.5-5.5 0-2.702-1.951-4.945-4.522-5.408"/></svg>
+          <input ref={fileInput} onChange={handleFileUpload} id="upload-btn" className="hidden" type="file"/>
+          <span>{file?.name}</span>
+        </label>
+      </div>
+      <button onClick={fileUpload} className="mt-2 w-full rounded-sm bg-green-500">Yükle</button>
     </div>
   )
 }

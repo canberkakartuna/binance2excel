@@ -1,4 +1,4 @@
-import http from "./http-common";
+import http, {formData} from "./http-common";
 
 class TestDataService {
   getAll() {

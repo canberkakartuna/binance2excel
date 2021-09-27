@@ -5,7 +5,7 @@ app = Flask(__name__)
 @app.route('/flask', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        print(request.form.get('key'))
+        print(request.get_json()['myFile'])
         return 'POST'
     else:
         return {'result': [
