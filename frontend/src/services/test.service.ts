@@ -1,12 +1,8 @@
-import http, {formData} from "./http-common";
+import http from "./http-common";
 
 class TestDataService {
-  getAll() {
-    return http.get("/home");
-  }
-
   postFile(file:any) {
-    return http.post("/home", file);
+    return http.post("/file", file);
   }
 }
 

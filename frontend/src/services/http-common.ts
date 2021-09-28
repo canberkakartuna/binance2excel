@@ -7,11 +7,3 @@ export default axios.create({
     "Access-Control-Allow-Origin":"*" 
   }
 });
-
-export const formData = axios.create({
-  baseURL: "http://localhost:3000/",
-  headers: {
-    "Content-type": "multipart/form-data",
-    "Access-Control-Allow-Origin":"*" 
-  }
-});

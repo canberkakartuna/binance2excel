@@ -12,19 +12,22 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}));
 app.use(fileUpload())
 
-app.get('/home', function(req, res) {
-    res.send('123')
-});
+app.post('/file', (req, res) => {
+    const file = req.files.file;
+    const filename = file.name;
 
-app.post('/home', function (req, res) {
-    axios.post('http://localhost:5000/flask', {
-        myFile: req.files.myFile
+    axios({
+        method: "post",
+        url: "http://localhost:5000/flask",
+        data: file,
+        headers: { "Content-Type": "multipart/form-data" },
     }).then(function (response) {
-        console.log(response.data)
+        //handle success
         res.send(response.data)
-    }).catch(function (error) {
-        console.log(error)
-    })
+    }).catch(function (response) {
+        //handle error
+        console.log(response);
+    });
 })
 
 app.listen(PORT, function (){ 
