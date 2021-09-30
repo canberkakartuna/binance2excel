@@ -1,20 +1,10 @@
 import pandas as pd
 from binance2excel import binance2excel
 from utils import *
-import tempfile
 
-def main(binary_file):
-    fp = tempfile.TemporaryFile()
-    fp.write(binary_file)
+def main(file):
 
-    print(fp)
-
-    print('Starts...')
-
-    df = pd.read_csv(fp)
-
-    print('Worked... ', df)
-
+    df = pd.read_csv(file)
     
     dframe = pd.DataFrame({
         'Executed_Pair':create_data(df, 4),
@@ -28,8 +18,6 @@ def main(binary_file):
 
     bigdata[['Price', 'Amount', 'Executed', 'Fee']] = \
         bigdata[['Price', 'Amount', 'Executed', 'Fee']].astype(float)
-
-    bigdata.to_excel('./canberk_kripto_raw.xlsx', sheet_name='Binance_Data', index=False, engine='xlsxwriter')
 
 
     coin_names = sorted(set(bigdata["Executed_Pair"]))
@@ -92,6 +80,3 @@ def main(binary_file):
 
 
     binance2excel(all_binance_data)
-
-
-    # dframe.to_excel('./kripto.xlsx', sheet_name='Binance_Data', index=False, engine='xlsxwriter')

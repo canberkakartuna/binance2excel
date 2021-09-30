@@ -28,7 +28,7 @@ function UploadInput(){
   };
 
   return (
-    <div className="w-1/4 m-auto mt-10">
+    <div className="w-1/4 m-auto">
       <div>
         <label
           className="flex flex-col items-center px-4 py-6 bg-white rounded-md shadow-md uppercase border border-blue cursor-pointer hover:bg-purple-600 hover:text-white text-purple-600 ease-linear transition-all duration-150">
