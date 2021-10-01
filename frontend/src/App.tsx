@@ -13,7 +13,7 @@ function App() {
         <div className="line"></div>
       </div>
       </div>
-      <div className="absolute top-10 left-1/2 transform -translate-x-1/2  w-screen">
+      <div className="absolute -top-20 left-1/2 transform -translate-x-1/2  w-screen">
         <Home />
       </div>
     </div>
