@@ -1,11 +1,11 @@
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from main import main
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import os
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
+cors = CORS(app)
 
 @app.route('/file', methods=['GET', 'POST'])
 def index():
@@ -19,6 +19,9 @@ def index():
     else:
         return 'Method not allowed'
 
+@app.route('/file/<path:filename>')
+def download_excel(filename):
+    return send_from_directory('.', 'kripto_canberk.xlsx', as_attachment=True)
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)

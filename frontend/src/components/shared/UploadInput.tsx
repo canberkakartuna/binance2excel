@@ -1,23 +1,33 @@
-import React, {useRef, useState} from "react";
+import React, {useContext, useRef, useState} from "react";
 import TestDataServices from "../../services/test.service";
-
+import {UploadContext} from "../../context/uploadContext";
 
 function UploadInput(){
   const fileInput:any = useRef();
   const [file, setFile] = useState<any>(null);
+  const [busy, setBusy] = useContext(UploadContext)
 
   const handleFileUpload = (event:any) => {    
     setFile(event.target.files[0])    
   };
 
-  const fileUpload = (event:any) => {
-    event.preventDefault();
+  const fileUpload = () => {
+    setBusy(true);
     const formData = new FormData();
-    
     formData.append("file", file);
     
     TestDataServices.postFile(formData).then(response => {
-      console.log(response);
+      TestDataServices.fileDownload(file.name.split('.')[0]).then(response => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${file.name.split('.')[0]}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
+        setBusy(false);
+      }).catch(error => {
+
+      });
     }).catch(error => {
       console.log(error);  
     });
@@ -28,7 +38,7 @@ function UploadInput(){
       <div className="flex m-auto justify-center">
         <div
           className="bg-white px-10 mr-2 cursor-pointer text-blue-500 font-bold">
-          <label onClick={() => fileInput.current.click()} htmlFor="upload-btn" className="font-extrabold cursor-pointer">Select a file</label>
+          <label onClick={() => fileInput.current.click} htmlFor="upload-btn" className="font-extrabold cursor-pointer">Select a file</label>
           <input ref={fileInput} onChange={handleFileUpload} id="upload-btn" className="hidden" type="file" name="binance_file"/>
         </div>
         <button onClick={fileUpload} className="flex justify-center bg-white text-blue-500 font-bold px-10">
