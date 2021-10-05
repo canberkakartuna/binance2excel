@@ -2,7 +2,7 @@ import xlsxwriter as xl
 import pandas as pd
 
 def binance2excel(binance_data):
-    writer = pd.ExcelWriter("kripto_canberk.xlsx", engine='xlsxwriter')
+    writer = pd.ExcelWriter("kripto.xlsx", engine='xlsxwriter')
     
     for d in binance_data:
         

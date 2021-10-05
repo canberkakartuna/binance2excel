@@ -21,7 +21,7 @@ def index():
 
 @app.route('/file/<path:filename>')
 def download_excel(filename):
-    return send_from_directory('.', 'kripto_canberk.xlsx', as_attachment=True)
+    return send_from_directory('.', 'kripto.xlsx', as_attachment=True)
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
