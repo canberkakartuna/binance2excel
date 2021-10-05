@@ -23,15 +23,15 @@ const Home = () => {
   return (
   <div className="flex flex-col h-screen justify-center text-white">
     {
-      (busy && errorStatus === false) ? (
+      (busy && !errorStatus) ? (
         <div className="text-2xl m-auto w-96 font-bold">
             <span>Your File Is Being Processed</span>
             <span>{'.'.repeat(counter)}</span>
         </div>
       ) : (
         errorStatus ? (
-          <div className="text-2xl m-auto w-96 font-bold">
-              <span>Something went wrong.</span>
+          <div className="text-2xl m-auto w-96 font-bold text-center">
+              <span>Something went wrong</span>
           </div>
         ) : (
           <div className="items-center text-center">
