@@ -5,7 +5,7 @@ import {UploadContext} from "../../context/uploadContext";
 function UploadInput(){
   const fileInput:any = useRef();
   const [file, setFile] = useState<any>(null);
-  const [,setBusy] = useContext(UploadContext)
+  const {setBusy, setErrorStatus} = useContext(UploadContext)
 
   const handleFileUpload = (event:any) => {    
     setFile(event.target.files[0])    
@@ -24,12 +24,13 @@ function UploadInput(){
         link.setAttribute('download', `${file.name.split('.')[0]}.xlsx`);
         document.body.appendChild(link);
         link.click();
+        setErrorStatus(false);
         setBusy(false);
       }).catch(error => {
-
+        setErrorStatus(true)
       });
     }).catch(error => {
-      console.log(error);  
+      setErrorStatus(true)  
     });
   };
 
