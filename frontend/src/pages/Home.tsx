@@ -1,9 +1,9 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import UploadInput from "../components/shared/UploadInput";
 import { UploadContext } from "../context/uploadContext";
 
 const Home = () => {
-  const [busy, setBusy] = useContext(UploadContext);
+  const [busy,] = useContext(UploadContext);
   const [counter, setCounter] = useState(1);
 
   useEffect(() => {
