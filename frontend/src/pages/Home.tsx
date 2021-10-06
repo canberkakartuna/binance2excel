@@ -7,18 +7,20 @@ const Home = () => {
   const [counter, setCounter] = useState(1);
 
   useEffect(() => {
-    if(counter > 3) {
-      setCounter(1);
+    if(busy){
+      if(counter > 3) {
+        setCounter(1);
+      }
+  
+      const timeout = setTimeout(() => {
+        setCounter(counter + 1);
+      }, 1000);
+  
+      return () => {
+        clearTimeout(timeout);
+      };
     }
-
-    const timeout = setTimeout(() => {
-      setCounter(counter + 1);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [counter]);
+  }, [counter, busy]);
 
   return (
   <div className="flex flex-col h-screen justify-center text-white">
