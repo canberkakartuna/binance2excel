@@ -14,7 +14,7 @@ body {
   background-color: #4A98E5;
   max-width: 100vw;
   overflow: hidden;
-  background-image: url("bg.png");
+  background-image: url("assets/bg.png");
 }
 
 .lines {
