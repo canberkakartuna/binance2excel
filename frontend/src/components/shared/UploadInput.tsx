@@ -1,4 +1,4 @@
-import React, {useContext, useRef, useState} from "react";
+import React, {useContext, useRef} from "react";
 import TestDataServices from "../../services/test.service";
 import {UploadContext} from "../../context/uploadContext";
 import clearIcon from "../../assets/clear.svg";
@@ -7,8 +7,7 @@ import fileUploadIcon from "../../assets/fileupload.svg";
 
 function UploadInput(){
   const fileInput:any = useRef();
-  const [file, setFile] = useState<any>(null);
-  const {setBusy, setErrorStatus} = useContext(UploadContext)
+  const {setBusy, setErrorStatus, file, setFile} = useContext(UploadContext)
 
   const handleFileUpload = (event:any) => {  
     setFile(event.target.files[0])    
